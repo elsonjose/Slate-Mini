@@ -25,9 +25,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.slate.slatemini.Helper.HomeFragmentAdapter;
+import com.slate.slatemini.Helper.HomeWatcher;
+import com.slate.slatemini.Interface.OnHomePressedListener;
 import com.slate.slatemini.Modals.Packages;
 
 import java.util.ArrayList;
@@ -58,6 +61,21 @@ public class HomeActivity extends AppCompatActivity {
         HomeAdapter = new HomeFragmentAdapter(getSupportFragmentManager(),0);
         HomeViewPager.setAdapter(HomeAdapter);
         HomeViewPager.setCurrentItem(1);
+
+        HomeWatcher mHomeWatcher = new HomeWatcher(this);
+        mHomeWatcher.setOnHomePressedListener(new OnHomePressedListener() {
+            @Override
+            public void onHomePressed() {
+                HomeViewPager.setCurrentItem(1);
+
+            }
+            @Override
+            public void onHomeLongPressed() {
+
+                Toast.makeText(HomeActivity.this, "Long Press", Toast.LENGTH_SHORT).show();
+            }
+        });
+        mHomeWatcher.startWatch();
     }
 
     private void InitBatteryDialog() {

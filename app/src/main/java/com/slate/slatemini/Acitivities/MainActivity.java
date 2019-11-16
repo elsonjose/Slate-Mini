@@ -71,10 +71,23 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull MainPackagesViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull MainPackagesViewHolder holder, final int position) {
 
             Glide.with(getApplicationContext()).load(AppPackagesList.get(position).getIcon()).into(holder.Appicon);
             holder.Appname.setText(AppPackagesList.get(position).getLabel());
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent = getPackageManager().getLaunchIntentForPackage(AppPackagesList.get(position).getName());
+                    if (intent != null) {
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+
+                }
+            });
         }
 
         @Override
@@ -94,5 +107,12 @@ public class MainActivity extends AppCompatActivity {
                 Appname = itemView.findViewById(R.id.package_single_item_textview);
             }
         }
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+        finish();
     }
 }

@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,12 +19,15 @@ import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.slate.slatemini.Acitivities.MainActivity;
 import com.slate.slatemini.Modals.NotificationMessage;
 import com.slate.slatemini.R;
 
@@ -39,6 +43,7 @@ public class NotificationFragment extends Fragment {
     private List<NotificationMessage> NotifMessageList;
     private RecyclerView NotifRecyclerview;
     private ImageButton ClearNotifBtn;
+    private PopupMenu popup;
 
 
     @Override
@@ -69,7 +74,6 @@ public class NotificationFragment extends Fragment {
 
             }
         });
-
         return notifyview;
     }
 
@@ -182,16 +186,51 @@ public class NotificationFragment extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull NotifViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull final NotifViewHolder holder, final int position) {
 
             holder.Title.setText(Title.get(position));
             holder.Text.setText(Text.get(position));
             long time = Long.parseLong(Time.get(position));
-            CharSequence Time = DateUtils.getRelativeDateTimeString(getContext(), time, DateUtils.SECOND_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, DateUtils.FORMAT_ABBREV_ALL);
-            String timesubstring = Time.toString().substring(Time.length()-8);
+            CharSequence Time1 = DateUtils.getRelativeDateTimeString(getContext(), time, DateUtils.SECOND_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, DateUtils.FORMAT_ABBREV_ALL);
+            String timesubstring = Time1.toString().substring(Time1.length()-8);
             Date date = new Date(time);
             String dateformat = DateFormat.format("dd-MMM-yyyy",date).toString();
             holder.Time.setText(dateformat+", "+timesubstring);
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent = getActivity().getPackageManager().getLaunchIntentForPackage(Package.get(position));
+                    if (intent != null) {
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+
+                }
+            });
+
+
+            holder.itemView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                   if(event.getAction()==3)
+                   {
+                       Package.remove(position);
+                       Time.remove(position);
+                       Text.remove(position);
+                       Title.remove(position);
+                       NotifRecyclerview.getAdapter().notifyDataSetChanged();
+                       if(NotifRecyclerview.getAdapter().getItemCount()==0)
+                       {
+                           ClearNotifBtn.setVisibility(View.GONE);
+                       }
+
+                   }
+                    return false;
+                }
+            });
+
 
         }
 
