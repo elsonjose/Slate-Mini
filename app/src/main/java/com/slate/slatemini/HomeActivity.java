@@ -2,8 +2,10 @@ package com.slate.slatemini;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
@@ -17,52 +19,45 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.slate.slatemini.Helper.HomeFragmentAdapter;
 import com.slate.slatemini.Modals.Packages;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     private Dialog BatteryDialog;
     private TextView BatteryHealthTV,BatteryPercentageTV,BatteryPlugTV,BatteryChargeTV,BatteryTempTV,BatteryTechTV,BatteryVoltageTV;
-    private List<Packages> AppPackagesList;
-    private PackageManager packageManager;
-    private RecyclerView MainRecyclerview;
+
+    private ViewPager HomeViewPager;
+    private HomeFragmentAdapter HomeAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_home);
 
         InitBatteryDialog();
-        AppPackagesList = new ArrayList<>();
-        AppPackagesList.clear();
-        packageManager =  getPackageManager();
-
-        MainRecyclerview = findViewById(R.id.main_recyclerview);
-        MainRecyclerview.setHasFixedSize(true);
-        MainRecyclerview.setLayoutManager(new GridLayoutManager(this,5));
-
-        Intent mainIntent = new Intent(Intent.ACTION_MAIN,null);
-        mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-        List<ResolveInfo> paclist = packageManager.queryIntentActivities(mainIntent,0);
-        for(int i=0;i<paclist.size();i++)
-        {
-            AppPackagesList.add(new Packages(paclist.get(i).activityInfo.packageName,paclist.get(i).loadLabel(packageManager).toString(),paclist.get(i).loadIcon(packageManager)));
-        }
-
 
         /*
 
                 loadBatterySection();
                 BatteryDialog.show();
          */
+
+        HomeViewPager = findViewById(R.id.home_viewpager);
+        HomeAdapter = new HomeFragmentAdapter(getSupportFragmentManager(),0);
+        HomeViewPager.setAdapter(HomeAdapter);
+        HomeViewPager.setCurrentItem(1);
     }
 
     private void InitBatteryDialog() {
@@ -83,31 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public class MainPackagesAdapter extends RecyclerView.Adapter<MainPackagesAdapter.MainPackagesViewHolder>
-    {
 
-        @NonNull
-        @Override
-        public MainPackagesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            return null;
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull MainPackagesViewHolder holder, int position) {
-
-        }
-
-        @Override
-        public int getItemCount() {
-            return 0;
-        }
-
-        public class MainPackagesViewHolder extends RecyclerView.ViewHolder {
-            public MainPackagesViewHolder(@NonNull View itemView) {
-                super(itemView);
-            }
-        }
-    }
 
     private void loadBatterySection() {
         IntentFilter intentFilter = new IntentFilter();

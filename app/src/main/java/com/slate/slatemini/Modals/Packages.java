@@ -5,12 +5,12 @@ import android.graphics.drawable.Drawable;
 public class Packages {
 
     private String Name;
-    private String Lable;
+    private String Label;
     private Drawable icon;
 
-    public Packages(String name, String lable, Drawable icon) {
+    public Packages(String name, String label, Drawable icon) {
         Name = name;
-        Lable = lable;
+        Label = label;
         this.icon = icon;
     }
 
@@ -18,8 +18,8 @@ public class Packages {
         return Name;
     }
 
-    public String getLable() {
-        return Lable;
+    public String getLabel() {
+        return Label;
     }
 
     public Drawable getIcon() {

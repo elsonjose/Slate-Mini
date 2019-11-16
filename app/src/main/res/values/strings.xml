@@ -13,4 +13,7 @@
     <string name="battery_health_over_voltage">Battery health overvoltage</string>
     <string name="battery_health_overheat">Battery health overheat</string>
     <string name="battery_health_unspecified_failure">Battery health unspecified error</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
