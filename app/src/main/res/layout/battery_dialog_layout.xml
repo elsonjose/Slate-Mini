@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="2dp">
+
+            <TextView
+                android:id="@+id/battery_dialog_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Battery Status"
+                android:textColor="@color/colorPrimary"
+                android:layout_centerHorizontal="true"
+                android:textSize="18sp"
+                />
+
+            <LinearLayout
+                android:id="@+id/battery_dialog_health_wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_below="@id/battery_dialog_header"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_battery_std"
+                    android:background="@android:color/transparent"/>
+
+                <TextView
+                    android:id="@+id/battery_dialog_health"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Battery Health"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="15sp"
+                    android:layout_marginStart="10dp"
+                    android:layout_gravity="center_vertical"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/battery_dialog_percentage_wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_below="@id/battery_dialog_health_wrapper"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_track_changes"
+                    android:background="@android:color/transparent"/>
+
+                <TextView
+                    android:id="@+id/battery_dialog_percentage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Battery Percentage"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="15sp"
+                    android:layout_marginStart="10dp"
+                    android:layout_gravity="center_vertical"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/battery_dialog_plugged_wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_below="@id/battery_dialog_percentage_wrapper"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_power"
+                    android:background="@android:color/transparent"/>
+
+                <TextView
+                    android:id="@+id/battery_dialog_plugged"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Battery Plugged"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="15sp"
+                    android:layout_marginStart="10dp"
+                    android:layout_gravity="center_vertical"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/battery_dialog_charge_wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_below="@id/battery_dialog_plugged_wrapper"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_battery_charging"
+                    android:background="@android:color/transparent"/>
+
+                <TextView
+                    android:id="@+id/battery_dialog_charge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Battery Charge"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="15sp"
+                    android:layout_marginStart="10dp"
+                    android:layout_gravity="center_vertical"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/battery_dialog_tech_wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_below="@id/battery_dialog_charge_wrapper"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_group"
+                    android:background="@android:color/transparent"/>
+
+                <TextView
+                    android:id="@+id/battery_dialog_tech"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Battery Technology"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="15sp"
+                    android:layout_marginStart="10dp"
+                    android:layout_gravity="center_vertical"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/battery_dialog_temp_wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_below="@id/battery_dialog_tech_wrapper"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_whatshot"
+                    android:background="@android:color/transparent"/>
+
+                <TextView
+                    android:id="@+id/battery_dialog_temp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Battery Temperature"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="15sp"
+                    android:layout_marginStart="10dp"
+                    android:layout_gravity="center_vertical"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/battery_dialog_voltage_wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_below="@id/battery_dialog_temp_wrapper"
+                android:orientation="horizontal"
+                android:layout_marginBottom="15dp">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_flash"
+                    android:background="@android:color/transparent"/>
+
+                <TextView
+                    android:id="@+id/battery_dialog_voltage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Battery Voltage"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="15sp"
+                    android:layout_marginStart="10dp"
+                    android:layout_gravity="center_vertical"/>
+
+            </LinearLayout>
+
+
+
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
