@@ -64,7 +64,7 @@ public class NotificationFragment extends Fragment {
                 NotifMessageList.clear();
                 NotifRecyclerview.removeAllViews();
                 ClearNotifBtn.setVisibility(View.GONE);
-                NotifAdapter notifAdapter = new NotifAdapter(new ArrayList<String>(),new ArrayList<String>(),new ArrayList<String>());
+                NotifAdapter notifAdapter = new NotifAdapter(new ArrayList<String>(),new ArrayList<String>(),new ArrayList<String>(),new ArrayList<String>());
                 NotifRecyclerview.setAdapter(notifAdapter);
 
             }
@@ -101,11 +101,6 @@ public class NotificationFragment extends Fragment {
 
                 }
             }
-
-
-
-
-
         }
     };
 
@@ -115,28 +110,39 @@ public class NotificationFragment extends Fragment {
         List<String> pack=new ArrayList<>();
         List<String> title=new ArrayList<>();
         List<String> text=new ArrayList<>();
+        List<String> time = new ArrayList<>();
 
         for(int i=0;i<notifMessageList.size();i++)
         {
-            if(!TextUtils.isEmpty(notifMessageList.get(i).getText()))
+            if(!notifMessageList.get(i).getAppPackage().toLowerCase().contains(notifMessageList.get(i).getTitle().toLowerCase()))
             {
-                if(!title.contains(notifMessageList.get(i).getTitle()))
+                if(!TextUtils.isEmpty(notifMessageList.get(i).getText()))
                 {
-                    pack.add(notifMessageList.get(i).getAppPackage());
-                    text.add(notifMessageList.get(i).getText());
-                    title.add(notifMessageList.get(i).getTitle());
+                    if(!title.contains(notifMessageList.get(i).getTitle()))
+                    {
+                        pack.add(notifMessageList.get(i).getAppPackage());
+                        text.add(notifMessageList.get(i).getText());
+                        title.add(notifMessageList.get(i).getTitle());
+                        time.add(String.valueOf(System.currentTimeMillis()));
 
-                    Collections.reverse(pack);
-                    Collections.reverse(text);
-                    Collections.reverse(title);
+                        Collections.reverse(pack);
+                        Collections.reverse(text);
+                        Collections.reverse(title);
 
-                    NotifAdapter notifAdapter = new NotifAdapter(pack,text,title);
-                    NotifRecyclerview.setAdapter(notifAdapter);
+                        NotifAdapter notifAdapter = new NotifAdapter(pack,text,title,time);
+                        NotifRecyclerview.setAdapter(notifAdapter);
 
-
-
+                    }
+                    else
+                    {
+                        text.set(getPostion(title,notifMessageList.get(i).getTitle()),notifMessageList.get(i).getText());
+                        NotifAdapter notifAdapter = new NotifAdapter(pack,text,title,time);
+                        NotifRecyclerview.setAdapter(notifAdapter);
+                    }
                 }
             }
+
+
         }
 
 
@@ -144,14 +150,27 @@ public class NotificationFragment extends Fragment {
 
     }
 
+    private int getPostion(List<String> title, String title1) {
+
+        for(int i=0;i<title.size();i++)
+        {
+            if(title.get(i).equals(title1))
+                return i;
+        }
+
+        return 0;
+    }
+
     public class NotifAdapter extends RecyclerView.Adapter<NotifAdapter.NotifViewHolder>
     {
-        List<String> Package,Text,Title;
+        List<String> Package,Text,Title,Time;
 
-        public NotifAdapter(List<String> aPackage, List<String> text, List<String> title) {
+
+        public NotifAdapter(List<String> aPackage, List<String> text, List<String> title, List<String> time) {
             Package = aPackage;
             Text = text;
             Title = title;
+            Time = time;
         }
 
         @NonNull
@@ -167,7 +186,7 @@ public class NotificationFragment extends Fragment {
 
             holder.Title.setText(Title.get(position));
             holder.Text.setText(Text.get(position));
-            long time = System.currentTimeMillis();
+            long time = Long.parseLong(Time.get(position));
             CharSequence Time = DateUtils.getRelativeDateTimeString(getContext(), time, DateUtils.SECOND_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, DateUtils.FORMAT_ABBREV_ALL);
             String timesubstring = Time.toString().substring(Time.length()-8);
             Date date = new Date(time);
