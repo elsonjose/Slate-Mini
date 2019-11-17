@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
+import android.util.Log;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -17,6 +18,11 @@ public class NotificationService extends NotificationListenerService {
         super.onCreate();
         context =  getApplicationContext();
 
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        return START_STICKY;
     }
 
     @Override
@@ -40,6 +46,7 @@ public class NotificationService extends NotificationListenerService {
         msgrcv.putExtra("title", title);
         msgrcv.putExtra("text", text);
         LocalBroadcastManager.getInstance(context).sendBroadcast(msgrcv);
+
 
     }
 

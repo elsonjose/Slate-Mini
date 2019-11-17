@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.provider.SyncStateContract;
+import android.service.notification.NotificationListenerService;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -69,5 +70,12 @@ public class HomeFragment extends Fragment {
             }
         });
         return homeview;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        getContext().startService(new Intent(getContext(), NotificationListenerService.class));
+
     }
 }

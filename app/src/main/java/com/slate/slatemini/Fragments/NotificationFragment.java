@@ -1,5 +1,7 @@
 package com.slate.slatemini.Fragments;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -28,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.slate.slatemini.Acitivities.MainActivity;
+import com.slate.slatemini.Helper.NotificationService;
 import com.slate.slatemini.Modals.NotificationMessage;
 import com.slate.slatemini.R;
 
@@ -37,6 +40,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import static android.content.Context.ALARM_SERVICE;
+
 
 public class NotificationFragment extends Fragment {
 
@@ -44,6 +49,7 @@ public class NotificationFragment extends Fragment {
     private RecyclerView NotifRecyclerview;
     private ImageButton ClearNotifBtn;
     private PopupMenu popup;
+    private TextView NotifTV;
 
 
     @Override
@@ -74,6 +80,20 @@ public class NotificationFragment extends Fragment {
 
             }
         });
+        
+        NotifTV = notifyview.findViewById(R.id.notif_info);
+        NotifTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent serviceintent = new Intent(getContext(), NotificationService.class);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 234324243, serviceintent, 0);
+                AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(ALARM_SERVICE);
+                alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (3000), pendingIntent);
+                
+            }
+        });
+        
         return notifyview;
     }
 
