@@ -53,6 +53,7 @@ public class WidgetFragment extends Fragment {
     private CardView BatteryOptimizer;
     private TextView BatteryOPTextview;
 
+    
     MapView mapView;
     GoogleMap map;
     private double MainLat, MainLng;
