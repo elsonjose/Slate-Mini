@@ -6,7 +6,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.slate.slatemini.Fragments.HomeFragment;
-import com.slate.slatemini.Fragments.NotificationFragment;
 import com.slate.slatemini.Fragments.WidgetFragment;
 
 public class HomeFragmentAdapter extends FragmentPagerAdapter {
@@ -20,15 +19,14 @@ public class HomeFragmentAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
        switch (position)
        {
-           case 0:return new NotificationFragment();
-           case 1:return new HomeFragment();
-           case 2: return new WidgetFragment();
+           case 0:return new HomeFragment();
+           case 1: return new WidgetFragment();
            default:return new HomeFragment();
        }
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return 2;
     }
 }
