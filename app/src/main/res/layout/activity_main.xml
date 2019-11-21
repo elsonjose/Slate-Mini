@@ -6,8 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".Acitivities.MainActivity">
 
+    <EditText
+        android:id="@+id/main_search_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/stroke_curved_background"
+        android:hint="search here"
+        android:gravity="center"
+        android:textColorHint="#cdcdcd"
+        android:textColor="@color/colorWhite"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/main_recyclerview"
+        android:layout_below="@id/main_search_edittext"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="5dp"
